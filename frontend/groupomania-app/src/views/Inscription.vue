@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div class="inscription">
     <img alt="Vue logo" src="../assets/icon-above-font.png">
     <h1>Inscription</h1>
     <form>
