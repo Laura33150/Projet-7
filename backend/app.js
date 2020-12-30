@@ -10,6 +10,7 @@ const userRoutes = require('./routes/user');
 const pubRoutes = require('./routes/pub');
 const adminRoutes = require('./routes/admin');
 const path = require('path');
+const Sequelize = require('sequelize');
 
 
 
@@ -20,7 +21,7 @@ app.use((req, res, next) => {
     next();
 });
 
-
+const sequelize = new Sequelize('root://user:pass@example.com:root/groupania')
 
 app.use(bodyParser.json());
 
@@ -34,3 +35,4 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 
 module.exports = app;
+module.exports = sequelize;

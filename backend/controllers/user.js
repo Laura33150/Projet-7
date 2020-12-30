@@ -9,6 +9,8 @@ const fs = require('fs');
 
 exports.signup = (req, res, next) => {
 
+  const User = groupania.User;
+
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
             const user = new User({
@@ -32,8 +34,9 @@ exports.signup = (req, res, next) => {
 
 
 exports.login = (req, res, next) => {
-    User.findOne({
-        email: req.body.email
+    groupania.User.findOne({
+        email: req.body.email,
+        password: req.body.password
       })
       .then(user => {
         if (!user) {
