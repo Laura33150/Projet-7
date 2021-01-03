@@ -1,12 +1,21 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Connexion</router-link> |
-      <router-link to="/about">Inscription</router-link>
+      <Nav />
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+import Nav from "@/components/Navigation.vue";
+export default {
+    name: "app",
+    components: {
+        Nav,
+    },
+};
+</script>
 
 <style lang="scss">
 #app {
@@ -14,20 +23,15 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  display: flex;
   justify-content: center;
-  margin-right: 300px;
+  
 }
 
 #nav {
-  padding: 30px;
-  height: 40px;
-  margin-right: 50px;
-  
-
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: white;
+    font-size: 1.2rem;
 
     &.router-link-exact-active {
       color: #FD2900;
