@@ -9,7 +9,6 @@ const fs = require('fs');
 
 exports.signup = (req, res, next) => {
 
-  const User = db.User;
 
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
@@ -34,7 +33,7 @@ exports.signup = (req, res, next) => {
 
 
 exports.login = (req, res, next) => {
-    db.User.findOne({
+    User.findOne({
         email: req.body.email,
         password: req.body.password
       })

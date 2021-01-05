@@ -4,13 +4,11 @@ const jwt = require('jsonwebtoken');
 
 const fs = require('fs');
 
-const db = require('../models/index.js');
 
-console.log(Object.keys(db));
 
 
 exports.getAllUsersAdmin = (req, res, next) => {
-    db.User.findAll()
+    User.findAll()
         .then((users) => res.status(200).json({
             users
         }))
@@ -18,11 +16,11 @@ exports.getAllUsersAdmin = (req, res, next) => {
             err
         }))
 };
-exports.getAllPublicationsAdmin = (req, res, next) => {
-    db.Publication.findAll({
+exports.getAllPubliAdmin = (req, res, next) => {
+    Publication.findAll({
             limit: 5,
             include: [{
-                model: db.User,
+                model: User,
                 attributes: ['id', 'username']
             }],
             order: [

@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const db = require('../models/index.js');
 
 
 const admin = (req, res, next) => {
@@ -10,7 +9,7 @@ const admin = (req, res, next) => {
     );
     const userId = decodedToken.userId;
 
-    db.User.findOne({
+    User.findOne({
             where: {
                 id: userId
             }
