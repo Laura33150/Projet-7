@@ -69,3 +69,50 @@ exports.login = (req, res, next) => {
         error
       }));
   };
+
+  exports.deleteUser = async (req, res, next) => {
+    try {
+        await User.destroy({
+            where: {
+                id: Number(req.params.id)
+            }
+        })
+        return res.status(200).send({
+            message: "Utilisateur supprimé"
+        })
+    } catch (err) {
+        return res.status(500).json({
+            err
+        });
+    }
+}
+
+
+exports.getOneUser = (req, res, next) => {
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, process.env.KEY_TOKEN);
+    const userId = decodedToken.userId;
+    User.findOne({
+            where: {
+                id: userId,
+            },
+        })
+        .then((user) => res.status(200).json({
+            user
+        }))
+        .catch((err) => res.status(401).json({
+            err
+        }));
+};
+
+
+
+exports.getAllUsers = (req, res, next) => {
+    User.findAll()
+        .then((users) => res.status(200).json({
+            users
+        }))
+        .catch((err) => res.status(401).json({
+            err
+        }));
+};
