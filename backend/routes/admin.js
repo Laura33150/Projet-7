@@ -5,7 +5,7 @@ const adminCtrl = require('../controllers/admin');
 const admin = require('../middlewares/admin');
 
 
-router.get('/', admin, adminCtrl.getAllPubliAdmin);
+router.get('/', admin, adminCtrl.getAllPublicationsAdmin);
 router.get('/users', admin, adminCtrl.getAllUsersAdmin);
 
 

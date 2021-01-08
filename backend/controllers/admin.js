@@ -16,7 +16,7 @@ exports.getAllUsersAdmin = (req, res, next) => {
             err
         }))
 };
-exports.getAllPubliAdmin = (req, res, next) => {
+exports.getAllPublicationsAdmin = (req, res, next) => {
     Publication.findAll({
             limit: 5,
             include: [{

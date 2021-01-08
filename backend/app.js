@@ -2,14 +2,14 @@ const express = require('express');
 const app = express();
 
 const bodyParser = require('body-parser');
-const cors = require('cors');
 
 
 
 const userRoutes = require('./routes/user');
-const pubRoutes = require('./routes/pub');
+const publicationRoutes = require('./routes/publication');
 const adminRoutes = require('./routes/admin');
 const path = require('path');
+require('dotenv').config();
 
 
 
@@ -22,17 +22,20 @@ app.use((req, res, next) => {
 });
 
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('sequelize://root:pass@example.com:root/groupania')
+const sequelize = new Sequelize('mysql://root:root@localhost:3306/groupania');
+sequelize.authenticate()
+      .then(() => console.log('Connexion etablie'))
+      .catch((err) => console.log('Impossible de se connecter:', err));
+
 
 app.use(bodyParser.json());
 
 
-app.use(cors());
 
 app.use('/api/auth', userRoutes);
-app.use('/api/publications', pubRoutes);
+app.use('/api/publication', publicationRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-
+module.exports = sequelize;
 module.exports = app;
