@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-    const Publi = sequelize.define(
-        'Publi', {
+    const Publication = sequelize.define(
+        'Publication', {
             title: DataTypes.STRING,
             userId: DataTypes.INTEGER,
             content: DataTypes.STRING,
@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
         }, {}
     );
 
-    Publi.associate = function (models) {
-        models.Publi.belongsTo(models.User, {
+    Publication.associate = function (models) {
+        models.Publication.belongsTo(models.User, {
             foreignKey: {
                 allowNull: false
             }
