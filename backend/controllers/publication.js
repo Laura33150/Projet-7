@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const publication = require('../models/publication');
+const Publication = require('../models/publication');
+const User = require('../models/user')
 
 exports.getAllPublications = (req, res, next) => {
 
@@ -74,4 +75,50 @@ exports.deletePublication = async (req, res, next) => {
             err
         });
     }
+}
+
+exports.createPublication = (req, res, next) => {
+    const decodedToken = jwt.verify(token, process.env.JWT_KEY);
+    const userId = decodedToken.userId;
+
+    models.User.findOne({
+        'id' : userId
+    })
+    .then( user => {
+        if(null==user) {
+            return res.status(400).json({
+                'error' : 'Utilisateur non trouvé.',
+                'userId' : 'userId'
+            })
+        }
+    })
+
+    let data = {
+        'UserId': userId,
+        'title': req.body.title,
+        'content': req.body.content,
+        'likes': req.body.likes,
+        'attachment': `${req.body.inputFile}`
+    };
+
+    models.Publication.create(data)
+    .then((NouvellePublication) => {
+      return res.status(200).json({
+        'user': user,
+        'NouvellePublication': NouvellePublication
+      })
+    })
+   .catch((error) => {
+       return res.status(400).json({
+        'error': error,
+        'user': user,
+        'data': data
+       })
+   })
+   .catch((error) => {
+       return res.status(500).json({
+        'error': error,
+        'userId': userId
+       })
+   });
 }
